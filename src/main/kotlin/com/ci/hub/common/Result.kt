@@ -7,36 +7,50 @@ package com.ci.hub.common
  * @version 1.0
  * @since 2024/05/06
  */
-sealed class Result<T> {
+open class Result<T> {
 
     open var code: Int = 0
-    open var message: String? = null
+    open var message: String = ""
     open var data: T? = null
+    open var success: Boolean = false
+    val timestamp: Long = System.currentTimeMillis()
 
 
-    data class Success<T>(override var data: T?) : Result<T>() {
-        override var code: Int = HttpStatus.OK
-        override var message: String? = null
+    data class Success<T>(
+        override var code: Int,
+        override var message: String,
+        override var data: T?,
+        override var success: Boolean = true
+    ) : Result<T>() {
+        constructor(data: T?) : this(HttpStatus.OK, "success", data)
     }
 
-    data class Error(override var message: String? = "请求失败", override var data: String? = "请求失败") :
-        Result<String>() {
-        override var code: Int = HttpStatus.INTERNAL_SERVER_ERROR
+    data class Error<T>(
+        override var code: Int = HttpStatus.BAD_REQUEST,
+        override var message: String = "请求失败",
+        override var data: T? = null,
+        override var success: Boolean = false
+    ) : Result<T>() {
+        constructor(message: String) : this(HttpStatus.BAD_REQUEST, message, null)
     }
 
-    data class Exception(override var message: String? = "请求异常", override var data: String? = "请求异常") :
-        Result<String>() {
-        override var code: Int = HttpStatus.INTERNAL_SERVER_ERROR
+    data class Exception(
+        override var code: Int,
+        override var message: String,
+        override var data: String?,
+        override var success: Boolean = false
+    ) : Result<String>() {
+        constructor(message: String) : this(HttpStatus.INTERNAL_SERVER_ERROR, message, null)
+        constructor(code: Int, message: String): this(code, message, null)
     }
 
 
-    data class UnAuthorized(override var message: String? = "未授权", override var data: String? = "未授权") :
-        Result<String>() {
-        override var code: Int = HttpStatus.UNAUTHORIZED
-    }
-
-    data class Forbidden(override var message: String? = "无权限", override var data: String? = "无权限") :
-        Result<String>() {
-        override var code: Int = HttpStatus.FORBIDDEN
+    data class UnAuthorized(
+        override var code: Int = HttpStatus.UNAUTHORIZED,
+        override var message: String = "未授权",
+        override var data: String? = "未授权",
+        override var success: Boolean = false
+    ) : Result<String>() {
+        constructor(message: String) : this(HttpStatus.UNAUTHORIZED, message, null)
     }
 }

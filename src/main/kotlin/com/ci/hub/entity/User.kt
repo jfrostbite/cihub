@@ -1,49 +1,57 @@
 package com.ci.hub.entity
 
-import com.baomidou.mybatisplus.annotation.IdType
-import com.baomidou.mybatisplus.annotation.TableField
-import com.baomidou.mybatisplus.annotation.TableId
-import com.baomidou.mybatisplus.annotation.TableName
+
 import com.ci.hub.common.GroupType
-import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.mybatisflex.annotation.Column
+import com.mybatisflex.annotation.Id
+import com.mybatisflex.annotation.KeyType
+import com.mybatisflex.annotation.Table
 import java.time.LocalDateTime
 
-@TableName("user") // 指定表名
+@Table("user") // 指定表名
 data class User(
-    @TableId(value = "id", type = IdType.AUTO) // 标识主键字段和主键生成策略
+    @Id(keyType = KeyType.Auto) // 标识主键字段和主键生成策略
     val id: Long? = null,
 
-    @TableField("uname")
-    val uname: String,
+    @Column("uname")
+    val username: String = "User_${System.currentTimeMillis()}",
 
-    @TableField("age")
+    @Column("age")
     val age: Int = 0,
 
-    @TableField("phone")
+    @Column("phone")
     val phone: String = "",
 
-    @TableField("addr")
+    @Column("addr")
     val addr: String = "",
 
-    @TableField("vip")
+    @Column("vip")
     val vip: Boolean = false,
 
-    @TableField("ctime")
+    @Column("ctime")
     val ctime: LocalDateTime = LocalDateTime.now(),
 
-    @TableField("weid")
+    @Column("weid")
     val weid: String = "",
 
-    @TableField("openid")
+    @Column("openid")
     val openid: String = "",
 
-    @TableField("crop")
+    @Column("crop")
     val crop: String = "",
 
-    @TableField("upwd")
-    @JsonIgnore
+    @Column("upwd")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     val upwd: String = "",
 
-    @TableField("groupid")
+    @Column("groupid")
     val groupid: Int = GroupType.DEFAULT,
+
+    @Column("nick")
+    val nickname: String = "",
+
+    var token: String = "",
+
+    val avatar: String = "",
 )

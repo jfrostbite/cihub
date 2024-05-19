@@ -1,10 +1,8 @@
 package com.ci.hub.mapper
 
-import Industry
-import com.baomidou.mybatisplus.core.mapper.BaseMapper
-import com.ci.hub.entity.Company
-import com.ci.hub.entity.User
-import com.ci.hub.entity.UserGroup
+
+import com.ci.hub.entity.*
+import com.mybatisflex.core.BaseMapper
 
 /**
  * UserMapper 接口，继承自 BaseMapper<User>，用于定义与用户相关的数据库操作。
@@ -41,3 +39,7 @@ interface CompanyMapper : BaseMapper<Company> {
 interface IndustryMapper : BaseMapper<Industry> {
     // 该接口没有定义具体方法，子类可以通过实现此接口来扩展Industry的数据库操作。
 }
+
+interface InComMapper : BaseMapper<InCom>
+
+interface MediaFileMapper : BaseMapper<MediaFile>

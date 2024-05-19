@@ -24,26 +24,12 @@ object HttpStatus {
     const val INTERNAL_SERVER_ERROR = 500
 }
 
-/**
- * cihub数据库的Col常量，用于表示数据库中的列名。根据User表生成的列名。
- */
-object CiHubColumn {
-    const val ID = "id"
-    const val UNAME = "uname"
-    const val AGE = "age"
-    const val PHONE = "phone"
-    const val ADDR = "addr"
-    const val VIP = "vip"
-    const val CTIME = "ctime"
-    const val WE_ID = "weid"
-    const val OPENID = "openid"
-    const val CROP = "crop"
-    const val UPWD = "upwd"
-    const val GROUP_ID = "groupid"
-}
-
 object GroupType {
     const val ADMIN = 1 // 表示管理员用户
     const val DEFAULT = 2 // 表示普通用户
     const val VIP = 3 // 表示VIP用户
 }
+
+const val WX = "wx"
+const val AD = "admin"
+const val CI = "ci-hub"

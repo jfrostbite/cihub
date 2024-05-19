@@ -1,13 +1,18 @@
-import com.baomidou.mybatisplus.annotation.IdType
-import com.baomidou.mybatisplus.annotation.TableField
-import com.baomidou.mybatisplus.annotation.TableId
-import com.baomidou.mybatisplus.annotation.TableName
+package com.ci.hub.entity
 
-@TableName("industry")
+import com.mybatisflex.annotation.*
+
+/**
+ * @author Kevin
+ * @version 1.0
+ * @since 2024/05/14
+ */
+@Table(value = "industry")
 data class Industry(
-    @TableId(value = "id", type = IdType.AUTO)
-    val id: Long? = null, // 行业id
-    val name: String, // 行业名
-    @TableField("icon")
-    val icon: String // 行业图标路径
+    @Id(keyType = KeyType.Auto)
+    val id: Long? = null,
+    @ColumnAlias("industry_name")
+    val name: String = "",
+    @Column(ignore = true)
+    var icon: String = ""
 )
